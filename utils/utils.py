@@ -9,7 +9,7 @@ def filter_df(df, filter):
     if filter == "all":
         return df
     if filter == "teams":
-        return df[df["team"] != "INDIVIDUALE"]
+        return df[df["individual"] == 0]
     if filter == "individuals":
-        return df[df["team"] == "INDIVIDUALE"]
+        return df[df["individual"] == 0]
     return df
