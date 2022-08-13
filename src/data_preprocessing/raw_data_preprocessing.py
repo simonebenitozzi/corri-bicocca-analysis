@@ -20,8 +20,8 @@ def edit_lines(file_lines, min_cols):
 
     return ["team,nation,time,minutes\n"]+file_lines
 
-source = ".\\data\\raw_data\\2021_5km_noncomp"
-target = ".\\data\\2021_5km_noncomp.csv"
+source = ".\\data\\raw_data\\2019_10km_noncomp"
+target = ".\\data\\2019_10km_noncomp.csv"
 file = open(source, "r")
 file_lines = file.readlines()
 
