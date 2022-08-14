@@ -85,7 +85,7 @@ with col2:
     summary_df = pd.DataFrame(columns=[" ","  "])
     if your_minutes>0:
         summary_df.loc[len(summary_df)] = ["Your Time:", f"{your_time}"]
-        your_position = len(filter_df[filter_df["minutes"]<your_minutes])
+        your_position = len(filter_df[filter_df["minutes"]<your_minutes])+1
         summary_df.loc[len(summary_df)] = ["Expected Position:", f"{your_position}"]
     summary_df.loc[len(summary_df)] = ["Participants:", str(len(filter_df))]
     
