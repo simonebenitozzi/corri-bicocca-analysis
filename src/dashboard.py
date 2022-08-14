@@ -1,4 +1,3 @@
-from turtle import color
 import streamlit as st
 
 import re
@@ -10,6 +9,10 @@ import utils.utils as utils
 
 st.set_page_config(page_title="CorriBicocca Analysis", page_icon=".\\img\\corri_bicocca.jpg", layout="wide")
 template = "plotly_dark"
+
+@st.cache(allow_output_mutation=True)
+def load_data(filename):
+    return pd.read_csv(filename, index_col="position")
 
 with st.sidebar:
     st.image(".\\img\\corri_bicocca_banner.png", caption=None, width=None, use_column_width="always")
@@ -33,7 +36,7 @@ distance = int(re.search(r'\d+', distance_str).group())
 mode = "comp" if mode=="competitive" else "noncomp"
 
 data_dir = ".\\data\\"
-df = pd.read_csv(data_dir+str(year)+"_"+distance_str+"_"+mode+".csv", index_col="position")
+df = load_data(data_dir+str(year)+"_"+distance_str+"_"+mode+".csv")
 filter_df = df.copy()
 
 participants = len(df)
@@ -46,7 +49,7 @@ else :
     filters = ["all", "teams"]
 
 filter = st.radio("Filter by:", filters, horizontal=True)
-filter_df = utils.filter_df(df, filter)
+filter_df = utils.filter_df(df.copy(), filter)
 filter_df["individual"] = filter_df["individual"].astype(str)
 
 avg_minutes = round(sum(filter_df["minutes"]) / len(filter_df), 2)
@@ -68,17 +71,13 @@ with col1:
     fig.update_traces(hovertemplate="<br>".join([
                             "time: %{customdata[0]}",
                             "position: %{y}",
-                            "team: %{customdata[1]}"
-        ])
-    )
+                            "team: %{customdata[1]}"]))
 
     fig.add_vline(x=avg_minutes, line_width=0.5, line_dash="dash", line_color="white", annotation_text=f"{avg_time}")
     fig.add_vline(x=best_minutes, line_width=0.5, line_dash="dash", line_color="white", annotation_text=f"{best_time}")
     fig.add_vline(x=worst_minutes, line_width=0.5, line_dash="dash", line_color="white", annotation_text=f"{worst_time}")
     if your_minutes > 0:
         fig.add_vline(x=your_minutes, line_width=3, line_dash="dash", line_color="green")
-
-    # fig.update_layout(annotations=[{**a, **{"y":.5}}  for a in fig.to_dict()["layout"]["annotations"]])
 
     st.plotly_chart(fig, use_container_width=True)
 
