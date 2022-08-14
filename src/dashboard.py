@@ -15,7 +15,7 @@ def load_data(filename):
     return pd.read_csv(filename, index_col="position")
 
 with st.sidebar:
-    st.image(".\\img\\corri_bicocca_banner.png", caption=None, width=None, use_column_width="always")
+    st.image("./img/corri_bicocca_banner.png", caption=None, width=None, use_column_width="always")
     st.write("---")
 
     distance_str = st.radio("Distance:", ["10km", "5km"], horizontal=True)
@@ -35,7 +35,7 @@ with st.sidebar:
 distance = int(re.search(r'\d+', distance_str).group())
 mode = "comp" if mode=="competitive" else "noncomp"
 
-data_dir = ".\\data\\"
+data_dir = "./data/"
 df = load_data(data_dir+str(year)+"_"+distance_str+"_"+mode+".csv")
 filter_df = df.copy()
 
