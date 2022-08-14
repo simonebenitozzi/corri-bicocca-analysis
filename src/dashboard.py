@@ -7,7 +7,7 @@ import plotly.express as px
 
 import utils.utils as utils
 
-st.set_page_config(page_title="CorriBicocca Analysis", page_icon="./img/corri_bicocca.jpg", layout="wide")
+st.set_page_config(page_title="CorriBicocca Analysis", page_icon="./img/corri_bicocca_icon.jpg", layout="wide")
 template = "plotly_dark"
 
 @st.cache(allow_output_mutation=True)
