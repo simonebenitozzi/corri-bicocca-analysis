@@ -32,6 +32,8 @@ with st.sidebar:
         st.text("Invalid Format (use h:mm:ss)")
         your_minutes = 0
 
+st.subheader(f"{year} - {distance_str} {mode}")
+
 distance = int(re.search(r'\d+', distance_str).group())
 mode = "comp" if mode=="competitive" else "noncomp"
 
